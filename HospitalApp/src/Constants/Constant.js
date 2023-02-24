@@ -1,10 +1,12 @@
+// const { width, height } = Dimensions.get('window')
 
-const LOGO ='../img/logo.png'
 
 export const COLORS = {
     mainColor: "#549cfc",
     white: "#ffffff",
-
+    black: "#181823",
+    zahri: "#C0EEF2",
+    light: "#E9F8F9"
 
 };
 

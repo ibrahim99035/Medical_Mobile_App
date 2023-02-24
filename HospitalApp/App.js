@@ -1,4 +1,4 @@
-import React from 'react';
+import React  from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -9,12 +9,14 @@ import {
   View,
 } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import Splash from './src/screen/Splash';
-
+import Navigation from './src/navigation/Navigation';
+import { Component } from 'react';
 const App = () => {
   return (
     <>
-      <Splash/>
+      <NavigationContainer>
+        <Navigation/>
+      </NavigationContainer>
     </>
   );
 }

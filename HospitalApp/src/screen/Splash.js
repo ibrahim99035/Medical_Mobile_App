@@ -7,7 +7,7 @@ import {
 } from 'react-native'
 
 import LottieView from 'lottie-react-native'
-import { COLORS, MARGIN } from '../Constants/Constant'
+import { COLORS, MARGIN , FONTS ,ICONSSIZE,PADDING,RADIUS} from '../Constants/Constant'
 const { width, height } = Dimensions.get('window')
 
 export default class Splash extends React.Component {
@@ -23,7 +23,7 @@ export default class Splash extends React.Component {
     }
     componentDidMount() {
         setTimeout(() => {
-
+            this.props.navigation.navigate('Intro');
 
 
 
@@ -39,7 +39,7 @@ export default class Splash extends React.Component {
                     <Image source={require('../img/logo.png')}
                         style={styles.logo}
                     />
-                    <View style={{width:width/1,height:height/1.7,marginTop:"13%"}}>
+                    <View style={{ width: width / 1, height: height / 1.7, marginTop: "13%" }}>
                         <LottieView
                             ref={this.ref}
                             source={require("../lottie/care-services.json")}
