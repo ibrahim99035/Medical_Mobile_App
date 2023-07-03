@@ -47,7 +47,7 @@ export default class Intro extends React.Component {
                     </View>
                     <TouchableOpacity style={styles.button}
                     onPress={()=>
-                    this.props.navigation.navigate('MainStack')
+                    this.props.navigation.navigate('SignIn')
                     }
                     >
                         <Text style={{ color: COLORS.black, fontSize: FONTS.h2 }}>Get Start</Text>

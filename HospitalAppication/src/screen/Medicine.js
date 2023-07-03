@@ -21,8 +21,7 @@ import LottieView from 'lottie-react-native';
 export default function Medicine() {
 
     const [notficationShow, setnotficationShow] = useState(false)
-    const [IconSearch, setIconSearch] = useState(true)
-    const [search, setsearch] = useState("")
+  
 
     const navigation = useNavigation();
 
@@ -31,6 +30,7 @@ export default function Medicine() {
             {
                 id: 1,
                 name: "congestal",
+                view:true,
                 uses: "Analgesic, antihistamine and decongestant",
                 dec: "Paracetamol, chlorpheniramine, and pseudoephedrine are frequently used for cold and relief of associated symptoms, as well as hay fever and various allergies. The following are the most common symptoms that the drug reduces:\nHeadache.\nSinus pain and congestion.\n Nasal congestion.\nsneeze.\nWatery eyes.\nRunny nose.\nHigh temperature.\nItchy nose or throat.",
                 change: false,
@@ -40,6 +40,7 @@ export default function Medicine() {
             {
                 id: 2,
                 name: "profen",
+                view:true,
                 uses: "Analgesic, antihistamine and decongestant",
                 dec: "Paracetamol, chlorpheniramine, and pseudoephedrine are frequently used for cold and relief of associated symptoms, as well as hay fever and various allergies. The following are the most common symptoms that the drug reduces:\nHeadache.\nSinus pain and congestion.\n Nasal congestion.\nsneeze.\nWatery eyes.\nRunny nose.\nHigh temperature.\nItchy nose or throat.",
                 change: false,
@@ -50,6 +51,7 @@ export default function Medicine() {
             {
                 id: 3,
                 name: "prexamol",
+                view:true,
                 uses: "Analgesic, antihistamine and decongestant",
                 dec: "Paracetamol, chlorpheniramine, and pseudoephedrine are frequently used for cold and relief of associated symptoms, as well as hay fever and various allergies. The following are the most common symptoms that the drug reduces:\nHeadache.\nSinus pain and congestion.\n Nasal congestion.\nsneeze.\nWatery eyes.\nRunny nose.\nHigh temperature.\nItchy nose or throat.",
                 change: false,
@@ -60,28 +62,68 @@ export default function Medicine() {
             {
                 id: 4,
                 name: "congestal",
+                view:true,
                 change: false,
                 uses: "Analgesic, antihistamine and decongestant",
                 dec: "Paracetamol, chlorpheniramine, and pseudoephedrine are frequently used for cold and relief of associated symptoms, as well as hay fever and various allergies. The following are the most common symptoms that the drug reduces:\nHeadache.\nSinus pain and congestion.\n Nasal congestion.\nsneeze.\nWatery eyes.\nRunny nose.\nHigh temperature.\nItchy nose or throat.",
-               
+
 
                 img: require('../img/congestal.png')
             }
         ]
     )
-    // const [changeIcon, setchangeIcon] = useState(false)
-    const description_Fun = (index) => {
+    const [changeIcon, setchangeIcon] = useState(false)
+    const [indexglobal, Setindexglobal] = useState()
+
+    const description = (index) => {
         let med = medicine
-
-
         if (med[index].change == false) {
             med[index].change = true
+            // Setindexglobal(index)
+
+            setchangeIcon(true)
         }
-        else{
+        else {
             med[index].change = false
+            setchangeIcon(false)
+            // Setindexglobal(index)
+        }
+        Setmedicine(med)
+    }
+    
+
+    const [IconSearch, setIconSearch] = useState(true)
+    const [searchKey, setsearchKey] = useState("")
+
+    function Search(text) {
+
+        let list = medicine
+        // let count = 0
+        for (let i = 0; i < list.length; i++) {
+            if (((list[i].name).toUpperCase()).includes(text.toUpperCase())) {
+                list[i].view = true
+
+            }
+            else {
+                list[i].view = false
+                // count++
+            }
         }
 
-        Setmedicine(med)
+        // if (count == list.length) {
+        //     this.state.animation_display = true
+        // }
+
+
+        // if (count != list.length) {
+        //     this.state.animation_display = false
+
+        // }
+
+
+
+        Setmedicine(list)
+        // count = 0
     }
 
 
@@ -136,12 +178,12 @@ export default function Medicine() {
                             placeholder={"Find a medicine"}
                             placeholderTextColor={COLORS.grayFont}
                             onChangeText={(value) => {
-                                // makesearch(value)
 
-                                setsearch(value)
+                                Search(value)
+                                setsearchKey(value)
                             }}
 
-                            value={search} />
+                            value={searchKey} />
                         <TouchableOpacity onPress={() => {
                             setIconSearch(true);
                         }}>
@@ -154,77 +196,86 @@ export default function Medicine() {
 
 
                 <View style={styles.continar_medicine}>
-                    <ScrollView style={{ width: width / 1.07 }}>
+                    <ScrollView 
+                    showsVerticalScrollIndicator={false}
+                    style={{ width: width / 1.07 }}>
 
                         {medicine.map((item, index) =>
                         (
-                            <>
-                            <View style={{ width: "100%", alignItems: "center", marginVertical: MARGIN.lMargin }}>
-                                <View style={styles.medicine_view}>
-                                    <View style={{
-                                        flexDirection: "row-reverse", justifyContent: "space-between",
-                                        alignItems: "center", width: "100%", height: height / 11, marginTop: 5
-                                    }}>
-
-                                        <Image source={item.img}
-                                            style={styles.med_photo}
-                                        />
-                                        <Text style={{
-                                            fontSize: FONTS.h1,
-                                            // backgroundColor: "#0f0f",
-                                            color: COLORS.white,
-                                            fontFamily: "Cabin-Bold",
-                                            marginLeft: 50,
-
-
+                            item.view?(          <>
+                                <View style={{ width: "100%", alignItems: "center", marginVertical: MARGIN.lMargin }}>
+                                    <View style={styles.medicine_view}>
+                                        <View style={{
+                                            flexDirection: "row-reverse", justifyContent: "space-between",
+                                            alignItems: "center", width: "100%", height: height / 11, marginTop: 5
                                         }}>
-                                            {item.name}
-                                        </Text>
+
+                                            <Image source={item.img}
+                                                style={styles.med_photo}
+                                            />
+                                            <Text style={{
+                                                fontSize: FONTS.h1,
+                                                // backgroundColor: "#0f0f",
+                                                color: COLORS.white,
+                                                fontFamily: "Cabin-Bold",
+                                                marginLeft: 50,
+
+
+                                            }}>
+                                                {item.name}
+                                            </Text>
+                                        </View>
+                                        <View style={{
+                                            flexDirection: "row", justifyContent: "space-between",
+                                            alignItems: "center",
+                                        }}>
+
+                                            <TouchableOpacity style={{ alignSelf: "flex-start" }}
+                                                onPress={() =>
+
+                                                    description(index)
+
+
+
+
+                                                }
+                                            >
+                                                <Ionicons name={item.change ? "chevron-up-circle-outline" : "chevron-down-circle-outline"} size={30} color="#fff" />
+                                            </TouchableOpacity>
+
+                                            <Text style={{ width: width / 1.3, fontSize: 18, margin: 5, fontFamily: "Cabin-Regular", color: COLORS.white }}
+                                                numberOfLines={1}
+                                            >
+                                                {item.uses}
+                                            </Text>
+                                        </View>
+
                                     </View>
-                                    <View style={{
-                                        flexDirection: "row", justifyContent: "space-between",
-                                        alignItems: "center",
-                                    }}>
 
-                                        <TouchableOpacity style={{ alignSelf: "flex-start" }}
-                                            onPress={() =>
-                                                (
-                                                    description_Fun(index)
-                                                )
-
-
-
-                                            }
+                                    {item.change ?
+                                        <Animatable.View
+                                            animation={"fadeIn"}
                                         >
 
-                                            <Ionicons name={item.change ? "chevron-up-circle-outline" : "chevron-down-circle-outline"} size={30} color="#fff" />
-                                        </TouchableOpacity>
+                                            <View style={styles.medicine_dec}>
+                                                <Text style={styles.text_dec}>
+                                                    {item.dec}
+                                                </Text>
+                                            </View>
 
-                                        <Text style={{ width: width / 1.3, fontSize: 18, margin: 5, fontFamily: "Cabin-Regular", color: COLORS.white }}
-                                            numberOfLines={1}
-                                        >
-                                            {item.uses}
-                                        </Text>
-                                    </View>
+
+
+                                        </Animatable.View>
+                                        :
+                                       null
+
+                                    }
 
                                 </View>
-
-                                {item.change ?
-                                    // <Animatable.View>
-
-                                    <View style={styles.medicine_dec}>
-                                        <Text style={styles.text_dec}>
-                                            {item.dec}
-                                        </Text>
-                                    </View>
-
-                                    // </Animatable.View>
-                                    :
-                                    null
-                                }
-
-                            </View>
-                            </>
+                            </>):(
+                                null
+                            )
+                  
                         )
                         )}
                         <View style={{ height: 160 }}></View>

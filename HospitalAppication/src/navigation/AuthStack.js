@@ -9,6 +9,7 @@ import { COLORS, MARGIN , FONTS ,ICONSSIZE,PADDING,RADIUS} from '../Constants/Co
 import Splash from '../screen/Splash';
 import Intro from '../screen/Intro';
 import SignIn from '../screen/SignIn';
+import SignUP from '../screen/SignUP';
 const Stack = createNativeStackNavigator();
 
 function AuthStack() {
@@ -23,6 +24,7 @@ function AuthStack() {
       <Stack.Screen name='Splash' component={Splash} />
       <Stack.Screen name="Intro" component={Intro} />
       <Stack.Screen name='SignIn' component={SignIn}/>
+      <Stack.Screen name='SignUP' component={SignUP} />
     </Stack.Navigator>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -7,20 +7,104 @@ import {
   StyleSheet,
   TextInput,
   ScrollView,
-  Image
+  Image,
+
 } from 'react-native';
 import { useNavigation, NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { COLORS, MARGIN, FONTS, ICONSSIZE, PADDING, RADIUS } from '../Constants/Constant'
 import Ionicons from 'react-native-vector-icons/Ionicons'
+import { indigo50 } from 'react-native-paper/lib/typescript/src/styles/themes/v2/colors';
 const { width, height } = Dimensions.get('window')
 
 
-export default function DoctorPage() {
-  const [notficationShow, setnotficationShow] = useState(false)
-
+export default function DoctorPage(props) {
+  const [notficationShow, setnotficationShow] = useState(false);
   const navigation = useNavigation();
+  const [doctorInfo, setdoctorInfo] = useState([]);
+  const [appointment, setappointment] = useState([]);
 
+  useEffect(() => {
+    if (props.route?.params?.doctors_information) {
+      const doctorInfooo = props.route.params.doctors_information;
+      const appoi = doctorInfooo.appointment;
+      setdoctorInfo(doctorInfooo);
+      setappointment(appoi);
+    }
+  }, []);
+
+
+  // function Booking(index) {
+  //   let times = appointment
+
+
+
+  //   if (times[index].booking == true) {
+  //     times[index].booking = false
+  //   }
+  //   else {
+  //     for (let i = 0; i < times.length; i++) {
+  //       times[i].booking = false
+  //     } times[index].booking = true
+  //   }
+  //   console.log(times[index].booking + "  " + index)
+
+  //   setappointment(times)
+
+
+
+  // }
+  const [time, settime] = useState('')
+  const [disabledButton, setdisabledButton] = useState(true)
+  const [index, setindex] = useState()
+  const [disablTime, setdisablTime] = useState(false)
+
+  function Booking(index) {
+    let times = [...appointment];
+    let checkChoose = false
+    if (times[index].booking) {
+      times[index].booking = false;
+      setdisabledButton(true)
+    } else {
+      for (let i = 0; i < times.length; i++) {
+        times[i].booking = false;
+      }
+      times[index].booking = true;
+      var t = times[index].time
+      checkChoose = true
+      setindex(index)
+    }
+
+
+    setappointment(times);
+    settime(t)
+    // console.log(t)
+    if (checkChoose) {
+      setdisabledButton(false)
+    }
+  }
+
+
+  const getTomorrowDate = () => {
+    const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    return tomorrow.toDateString();
+  };
+
+  const button = () => {
+    setdisablTime(true)
+    navigation.navigate("Done", {
+      time: time,
+      doctorName:doctorInfo.name
+    })
+    let times = [...appointment];
+    times[index].disaple = true
+    setappointment(times)
+
+
+
+  }
 
   return (
     <>
@@ -50,11 +134,27 @@ export default function DoctorPage() {
           </TouchableOpacity>
 
         </View>
-
+        {
+          /*
+           {
+                    id: 1,
+                    name: "Dr : maria",
+                    like: false,
+                    rate: 1.0,
+                    avilable: true,
+                    experience: 5,
+                    appointment: ["9:00", "9:30", "10:00", "10:30", "11:00"],
+                    appointment_home: ["12:00","1:00"],
+        
+                    section: "Brain",
+                    photo: require('../img/1.png'),
+                  }
+          */
+        }
 
         <View style={styles.doctor_view}>
           <View style={styles.doctor_img_view}>
-            <Image source={require('../img/1.png')}
+            <Image source={doctorInfo.photo}
               style={styles.doctor_img}
             />
           </View>
@@ -62,32 +162,97 @@ export default function DoctorPage() {
             <Text style={styles.doctor_name}
               numberOfLines={1}
             >
-              Abdelrhman ghodia
+              {doctorInfo.name}
             </Text>
             <Text style={styles.doctor_section}>
-              cancer Department
+              {doctorInfo.section}
             </Text>
             <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
               <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
-                <Text style={styles.doctor_section}>3.3</Text>
+                <Text style={styles.doctor_section}>{doctorInfo.rate}</Text>
                 <Ionicons name="star" size={20} color={COLORS.white} style={{ marginHorizontal: 3 }} />
 
               </View>
-         
+
               <Text style={styles.doctor_exp}>
-              ( 5 years of experience )
-            </Text>
-            </View>
-        
-            <Text style={styles.doctor_status}>
-                Available now
+                {doctorInfo.experience}
               </Text>
+            </View>
+
+            <Text style={styles.doctor_status}>
+              Available now
+            </Text>
           </View>
         </View>
+        <View style={{ width: width / 1.1, marginVertical: MARGIN.lMargin, height: height / 2 }}>
+          {/* <TouchableOpacity
+          // onPress={()=>
+          // showtimes()
+          // }
+          > */}
+          <Text style={{
+            color: COLORS.mainColor,
+            textAlign: "right",
+            fontSize: FONTS.h2,
+            fontFamily: "Cabin-Regular",
+            alignSelf: "flex-end"
+          }}>Appointment Time</Text>
+          <Text style={{
+            color: COLORS.mainColor,
+            textAlign: "right",
+            fontSize: FONTS.h6,
+            fontFamily: "Cabin-Regular",
+            alignSelf: "flex-end"
+          }}
+          >Booking on : {getTomorrowDate()}</Text>
+
+          {/* </TouchableOpacity> */}
+          <ScrollView style={{ width: "100%" }}>
+
+            <View style={styles.bookView}>
+              {appointment.map((time, index) =>
+
+              (
+                <TouchableOpacity
+                  style={[ styles.bookTypeView,
+                  time.disaple?{ backgroundColor: "red" } : time.booking ? { backgroundColor: COLORS.mainColor } : { backgroundColor: "#ccc" } 
+                ]}
+                  disabled={time.disaple}
+                  onPress={() =>
+                    Booking(index)
+                  }
+                >
+                  <Text style={{ color: COLORS.white, fontFamily: "Cabin-Regular", fontSize: FONTS.h3 }}>{time.place + " visit "}</Text>
+                  <Text style={{ color: COLORS.white, fontFamily: "Cabin-Regular", fontSize: FONTS.h3 }}>{time.time}</Text>
+                </TouchableOpacity>
+
+              )
+              )}
+
+            </View>
+            <View style={{ height: 50 }}></View>
+          </ScrollView>
+
+        </View>
+
+        <TouchableOpacity style={[styles.BookButton, disabledButton ? { backgroundColor: "#ccc" } : { backgroundColor: COLORS.mainColor }]}
+          disabled={disabledButton}
+          onPress={() =>
+            button()
+
+          }
+        >
+          <Text style={{
+            color: COLORS.white,
+            fontSize: FONTS.h3,
+            fontFamily: "Alkatra-Bold",
+          }}>Book Appointment</Text>
+        </TouchableOpacity>
 
       </View>
     </>
   )
+  // }
 
 }
 
@@ -184,7 +349,7 @@ const styles = StyleSheet.create({
     fontFamily: "Cabin-Regular",
     fontSize: FONTS.h4,
     color: COLORS.white,
-    
+
   },
   doctor_status: {
     fontFamily: "Cabin-Bold",
@@ -192,12 +357,45 @@ const styles = StyleSheet.create({
     letterSpacing: 1.5,
     color: "#0f0",
     // color:"#f00",
-    alignSelf:"center",
-    marginVertical:5
+    alignSelf: "center",
+    marginVertical: 5
   },
   doctor_exp: {
     fontFamily: "Cabin-Regular",
     color: COLORS.white,
     fontSize: FONTS.h6
   },
+  bookView: {
+    width: "100%",
+    marginVertical: MARGIN.lMargin,
+    height: height / 1.5,
+    // flexDirection: "row-reverse",
+    alignItems: "center",
+    // justifyContent: "space-between",
+    // flexWrap:"wrap",
+    // backgroundColor: "#00f"
+  },
+  bookTypeView: {
+    width: width / 1.7,
+    height: height / 16,
+    // backgroundColor: COLORS.mainColor,
+    borderRadius: RADIUS.mdRadius,
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginVertical: MARGIN.lMargin,
+    flexDirection: "row-reverse",
+    padding: 10,
+    flexWrap: "wrap"
+  }
+  ,
+  BookButton: {
+    width: width / 1.3,
+    height: height / 12,
+    backgroundColor: COLORS.mainColor,
+    borderRadius: RADIUS.lgRadius,
+    alignItems: "center",
+    justifyContent: "center",
+    marginVertical: MARGIN.lMargin
+  }
 });
+

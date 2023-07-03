@@ -32,7 +32,53 @@ export default function Departments(props) {
             rate: 1.0,
             avilable: true,
             experience: 5,
-            appointment: ["9:00", "9:30", "10:00", "10:30", "11:00"],
+            appointment: [
+              {
+                place:'hospital',
+                time:'9:00',
+                booking:false,
+                disaple:false,
+              },
+              {
+                place:'hospital',
+
+                time:'9:30',
+                booking:false,
+                disaple:false,
+              },
+              {
+                place:'hospital',
+                time:'10:00',
+                booking:false
+              },
+              {
+                place:'hospital',
+                time:'10:30',
+                booking:false
+              },
+              {
+                place:'hospital',
+                time:'11:00',
+                booking:false
+              },
+              {
+                place:'hospital',
+                time:'11:30',
+                booking:false
+              },
+              {
+                place:'home',
+                time:"12:00",
+                booking:false
+              },
+              {
+                place:'home',
+                time:"1:00",
+                booking:false
+              },
+            ],
+         
+
             section: "Brain",
             photo: require('../img/1.png'),
           }
@@ -45,6 +91,7 @@ export default function Departments(props) {
             avilable: true,
             experience: 3,
             appointment: ["9:00", "9:30", "10:00", "10:30", "11:00"],
+            appointment_home: ["12:00","1:00"],
             section: "Brain",
             photo: require('../img/2.png'),
 
@@ -58,6 +105,7 @@ export default function Departments(props) {
             avilable: true,
             experience: 4,
             appointment: ["9:00", "9:30", "10:00", "10:30", "11:00"],
+            appointment_home: ["12:00","1:00"],
             section: "Brain",
             photo: require('../img/2.png'),
 
@@ -71,6 +119,7 @@ export default function Departments(props) {
             avilable: true,
             experience: 5,
             appointment: ["9:00", "9:30", "10:00", "10:30", "11:00"],
+            appointment_home: ["12:00","1:00"],
             section: "Brain",
             photo: require('../img/2.png'),
 
@@ -84,6 +133,7 @@ export default function Departments(props) {
             avilable: true,
             experience: 7,
             appointment: ["9:00", "9:30", "10:00", "10:30", "11:00"],
+            appointment_home: ["12:00","1:00"],
             section: "Brain",
             photo: require('../img/1.png'),
 
@@ -559,7 +609,7 @@ export default function Departments(props) {
           </View>
 
           <TouchableOpacity
-            onPress={navigation.goBack}
+            onPress={()=>props.navigation.navigate('Home')}
           >
             <Ionicons name="arrow-back-circle-sharp" color={COLORS.mainColor} size={40} style={{ marginHorizontal: 10 }} />
           </TouchableOpacity>
@@ -569,18 +619,18 @@ export default function Departments(props) {
 
 
         <View style={styles.mainView}>
-          <ScrollView>
+          <ScrollView showsVerticalScrollIndicator={false}>
             {Departments.map((section, index) =>
 
               <TouchableOpacity style={[styles.buttonStyle, index % 2 == 0 ? { marginLeft: 25, } : { marginLeft: 0 }]}
-              onPress={()=>{
-                navigation.navigate("AllDoctors",{
-                 department_name :section.name,
-                 dep_doctors:section.doctors,
-                 dep_img:section.img,
+                onPress={() => {
+                  navigation.navigate("AllDoctors", {
+                    department_name: section.name,
+                    dep_doctors: section.doctors,
+                    dep_img: section.img,
 
-                })
-              }}
+                  })
+                }}
               >
                 <View style={styles.viewForText}>
                   <Text style={styles.textStyle}>{section.name}</Text>
@@ -639,7 +689,7 @@ const styles = StyleSheet.create({
   page_name_text: {
     fontSize: FONTS.h2,
     color: COLORS.mainColor,
-    fontFamily:"Cabin-Regular"
+    fontFamily: "Cabin-Regular"
 
   },
   mainView: {
@@ -653,14 +703,14 @@ const styles = StyleSheet.create({
     fontSize: FONTS.h1,
     textAlign: "center",
     marginHorizontal: MARGIN.lMargin,
-    fontFamily:"Cabin-Regular"
+    fontFamily: "Cabin-Regular"
 
   }
 
   ,
   buttonStyle: {
     width: width / 1.3,
-    height: height /10,
+    height: height / 10,
     backgroundColor: COLORS.mainColor,
     marginVertical: MARGIN.xlMargin,
     borderRadius: RADIUS.smRadius,
@@ -676,7 +726,7 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     // borderRadius:RADIUS.mdRadius,
     marginHorizontal: MARGIN.lMargin,
-    
+
   }
   ,
   viewForText: { width: "75%", alignItems: "flex-end" },

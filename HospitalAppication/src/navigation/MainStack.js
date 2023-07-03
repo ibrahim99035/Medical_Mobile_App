@@ -14,6 +14,8 @@ import Heart from '../screen/Heart';
 import Chat from '../screen/Chat';
 import Profile from '../screen/Profile';
 import HomeStack from './HomeStack';
+import DepartmentNav from './DepartmentsNav';
+import ProfileStack from './ProfileStack';
 const Tab = createBottomTabNavigator()
 
 function MainStack() {
@@ -32,8 +34,8 @@ function MainStack() {
                         iconName = focused
                             ? 'home'
                             : 'home-outline';
-                    } else if (route.name === 'Heart') {
-                        iconName = focused ? 'heart' : 'heart-outline'
+                    } else if (route.name === 'Departments') {
+                        iconName = focused ? 'medkit' : 'medkit-outline'
                     } else if (route.name === 'Chat') {
                         iconName = focused ? 'chatbox-ellipses' : 'chatbox-ellipses-outline'
                     } else if (route.name === 'Profile') {
@@ -49,9 +51,9 @@ function MainStack() {
 
             })}
         >
-            <Tab.Screen name="Profile" component={Profile} />
+            <Tab.Screen name="Profile" component={ProfileStack} />
             <Tab.Screen name="Chat" component={Chat} />
-            <Tab.Screen name="Heart" component={Heart} />
+            <Tab.Screen name='Departments'  component={DepartmentNav}/>
             <Tab.Screen name="Home" component={HomeStack} />
 
 

@@ -7,12 +7,16 @@ import {
     Text,
     StatusBar,
     TouchableOpacity,
-    ScrollView
+    ScrollView,
+    Linking,
+    BackHandler,
+    
 } from 'react-native'
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { COLORS, MARGIN, FONTS, ICONSSIZE, PADDING, RADIUS } from '../Constants/Constant'
 const { width, height } = Dimensions.get('window')
+import * as Animatable from 'react-native-animatable';
 
 export default class Home extends React.Component {
 
@@ -23,7 +27,23 @@ export default class Home extends React.Component {
             notficationShow: false
 
         }
+        // this.handleBackButtonClick = this.handleBackButtonClick.bind(this)
+
     }
+
+
+
+    // componentWillMount() {
+    //     BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
+    // }
+    // componentWillUnmount() {
+    //     BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
+    // }
+    // handleBackButtonClick() {
+    //     BackHandler.exitApp()
+    //     return true;
+    // }
+
 
     render() {
         return (
@@ -47,9 +67,13 @@ export default class Home extends React.Component {
 
                         </TouchableOpacity>
                         <Image source={require("../img/logo.png")} style={styles.logo} />
-                        <TouchableOpacity >
-                            {/* <Ionicons name="arrow-back" color={COLORS.white} size={30} /> */}
-                            <Ionicons name="arrow-back-circle-sharp" color={COLORS.mainColor} size={40} style={{ marginHorizontal: 10 }} />
+                        <TouchableOpacity
+                            onPress={() =>
+                                BackHandler.exitApp()
+                            }
+                        >
+                            {/* <Ionicons name="arrow-back-circle-sharp" color={COLORS.mainColor} size={40} style={{ marginHorizontal: 10 }} /> */}
+                            <Ionicons name="exit-outline" color={COLORS.mainColor} size={40} style={{ marginHorizontal: 10 }} />
 
                         </TouchableOpacity>
                     </View>
@@ -62,18 +86,22 @@ export default class Home extends React.Component {
                         </Text>
                     </View>
 
+                    <ScrollView showsVerticalScrollIndicator={false}>
+                        <Animatable.View
+                        animation={"zoomIn"}
+                        >
+                            <View style={styles.largeView}>
+                                <Image source={require("../img/doc.png")}
+                                    style={styles.newsImg} />
+                                <View>
+                                    <Text style={[styles.textStyle, { fontSize: FONTS.h0 }]}>
+                                        Al-Asema {"\n"} Hospital
+                                    </Text>
+                                </View>
 
-                    <View style={styles.largeView}>
-                        <Image source={require("../img/doc.png")}
-                            style={styles.newsImg} />
-                        <View>
-                            <Text style={[styles.textStyle, { fontSize: FONTS.h0 }]}>
-                                Al-Asema {"\n"} Hospital
-                            </Text>
-                        </View>
-
-                    </View>
-                    <ScrollView>
+                            </View>
+                        </Animatable.View>
+{/* 
                         <TouchableOpacity style={styles.buttonStyle}
                             onPress={() =>
                                 this.props.navigation.navigate('DepartmentNav')
@@ -86,13 +114,13 @@ export default class Home extends React.Component {
                             <View style={styles.viewForIcon}>
                                 <Image style={styles.buttonImage} source={require("../img/doctorIcon.png")} />
                             </View>
-                        </TouchableOpacity>
+                        </TouchableOpacity> */}
 
 
                         <TouchableOpacity style={styles.buttonStyle}
-                         onPress={() =>
-                            this.props.navigation.navigate('Medicine')
-                        }
+                            onPress={() =>
+                                this.props.navigation.navigate('Medicine')
+                            }
                         >
                             <View style={styles.viewForText}>
                                 <Text style={styles.textStyle}>Medicine</Text>
@@ -104,25 +132,33 @@ export default class Home extends React.Component {
 
                         <TouchableOpacity style={styles.buttonStyle}>
                             <View style={styles.viewForText}>
-                                <Text style={styles.textStyle}>Fast Service</Text>
+                                <Text style={styles.textStyle}>Service</Text>
                             </View>
                             <View style={styles.viewForIcon}>
                                 <Image style={styles.buttonImage} source={require("../img/service.png")} />
                             </View>
                         </TouchableOpacity>
 
-                        <TouchableOpacity style={styles.buttonStyle}>
+                        <TouchableOpacity style={styles.buttonStyle}
+                            onPress={() => {
+                                Linking.openURL('tel:' + "01097751608");
+                            }}
+                        >
                             <View style={styles.viewForText}>
-                                <Text style={styles.textStyle}>Ambulance</Text>
+                                <Text style={styles.textStyle}>Emergency</Text>
                             </View>
                             <View style={styles.viewForIcon}>
                                 <Image style={styles.buttonImage} source={require("../img/Ambulance.png")} />
                             </View>
                         </TouchableOpacity>
 
-                        <TouchableOpacity style={styles.buttonStyle}>
+                        <TouchableOpacity style={styles.buttonStyle}
+                            onPress={() =>
+                                this.props.navigation.navigate('IllnessStack')
+                            }
+                        >
                             <View style={styles.viewForText}>
-                                <Text style={styles.textStyle}>Help</Text>
+                                <Text style={styles.textStyle}>Illness</Text>
                             </View>
                             <View style={styles.viewForIcon}>
                                 <Image style={styles.buttonImage} source={require("../img/hl.png")} />
@@ -179,7 +215,7 @@ const styles = StyleSheet.create({
     textNameStyle: {
         color: COLORS.mainColor,
         textAlign: "right",
-        fontFamily:"Cabin-Regular"
+        fontFamily: "Cabin-Regular"
 
     },
     largeView: {
@@ -205,7 +241,7 @@ const styles = StyleSheet.create({
         fontSize: FONTS.h1,
         textAlign: "center",
         margin: MARGIN.lMargin,
-        fontFamily:"Cabin-Regular"
+        fontFamily: "Cabin-Regular"
 
     }
 
@@ -219,6 +255,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         elevation: 5, flexDirection: "row",
+        alignSelf: "center"
         // paddingVertical: 10,
 
     }

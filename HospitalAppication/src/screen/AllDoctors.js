@@ -106,8 +106,13 @@ export default function AllDoctors(props) {
                     ( {doctor.experience} years of experience )
                   </Text>
                   <TouchableOpacity style={styles.book_button}
-                    onPress={() =>
-                      navigation.navigate("DoctorPage")
+                    onPress={() =>{
+
+                    
+                      navigation.navigate("DoctorPage",{
+                        doctors_information:doctors[index]
+                      })
+                    }
                     }
                   >
                     <Text style={styles.book_text}>

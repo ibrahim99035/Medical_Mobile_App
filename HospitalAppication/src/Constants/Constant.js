@@ -3,11 +3,12 @@
 
 export const COLORS = {
     mainColor: "#549cfc",
+    // mainColor: "#27a5fd",
     white: "#ffffff",
     black: "#181823",
     zahri: "#C0EEF2",
-    light: "#E9F8F9"
-
+    light: "#E9F8F9",
+    textView:"#B0DAFFdd"
 };
 
 export const PADDING = {
