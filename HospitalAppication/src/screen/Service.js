@@ -7,36 +7,67 @@ import {
   StyleSheet,
   TextInput,
   ScrollView,
-  Image
+  Image,
+
 } from 'react-native';
 import { useNavigation, NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { COLORS, MARGIN, FONTS, ICONSSIZE, PADDING, RADIUS } from '../Constants/Constant'
 import Ionicons from 'react-native-vector-icons/Ionicons'
+import { indigo50 } from 'react-native-paper/lib/typescript/src/styles/themes/v2/colors';
 const { width, height } = Dimensions.get('window')
 
 
-export default function Done(props) {
-  const [notficationShow, setnotficationShow] = useState(false)
-
+export default function Service(props) {
+  const [notficationShow, setnotficationShow] = useState(false);
   const navigation = useNavigation();
 
-  const [day, setday] = useState("")
-  // const [time, settime] = useState("")
-  const [doctor, setdoctor] = useState("")
 
-
-  const [ftime, setftime] = useState()
   useEffect(() => {
-    if (props.route?.params?.time) {
-      const time = props.route.params.time;
-      setftime(time)
-      // console.log(time)
-    }
-    let name = props.route.params.doctorName
-    setdoctor(name)
+
 
   }, []);
+
+
+  const [Analysis, setAnalysis] = useState([
+    {
+      name: "Diabetes Illness",
+      section: "Lab 1"
+
+    },
+    {
+      name: "Covid-19  Illness"
+      ,
+      section: "Lab 2"
+    },
+    {
+      name: "Liver-Function Illness"
+      ,
+      section: "Lab 2"
+    },
+    {
+      name: "Kidney-Function Illness"
+      ,
+      section: "Lab 3"
+    },
+    {
+      name: "Blood-Fluidity Illness"
+      ,
+      section: "Lab 4"
+    },
+    {
+      name: "Blood-Diseases"
+      ,
+      section: "Lab 5"
+    }, {
+      name: "Hormone Illness"
+      ,
+      section: "Lab 6"
+    },
+  ])
+
+
+
 
   const getTomorrowDate = () => {
     const today = new Date();
@@ -44,25 +75,12 @@ export default function Done(props) {
     tomorrow.setDate(tomorrow.getDate() + 1);
     return tomorrow.toDateString();
   };
-  const [arrNotification, setarrNotification] = useState([])
 
-  function Done() {
-    let dateaa = getTomorrowDate()
-    let arr = arrNotification
-    let newOpj = {
-      drname: doctor,
-      time: ftime,
-      date: dateaa
-    }
-    arr.push(newOpj)
 
-  }
 
   return (
     <>
-      {/* checkmark-circle */}
       <View style={{ flex: 1, alignItems: 'center', backgroundColor: COLORS.white }}>
-
         <View style={styles.header}>
 
           <TouchableOpacity
@@ -78,7 +96,7 @@ export default function Done(props) {
           {/* <Image source={require("../img/logo.png")} style={styles.logo} /> */}
 
           <View style={styles.pageNameview}>
-            <Text style={styles.page_name_text}>Reservation Done</Text>
+            <Text style={styles.page_name_text}>Analysis</Text>
           </View>
 
           <TouchableOpacity
@@ -88,49 +106,49 @@ export default function Done(props) {
           </TouchableOpacity>
 
         </View>
-        <View style={styles.largeView}>
-          <Ionicons name="checkmark-circle" size={150} color={COLORS.white} />
-          <Text
-            style={{
-              color: COLORS.white,
-              fontSize: FONTS.h2,
-              fontFamily: "Cabin-Regular",
-            }}
-          >{doctor}</Text>
-
-          <Text
-            style={{
-              color: COLORS.white,
-              fontSize: FONTS.h2,
-              fontFamily: "Cabin-Regular",
-            }}
-          >Day:  {getTomorrowDate()}</Text>
-
-          <Text
-            style={{
-              color: COLORS.white,
-              fontSize: FONTS.h2,
-              fontFamily: "Cabin-Regular",
-            }}
-          >Time:   {ftime} pm</Text>
 
 
 
-          <TouchableOpacity style={styles.button}
-            onPress={() => {
-              Done()
-            }}
-          >
-            <Text style={{ color: "#000", fontSize: 17 }}>Done</Text>
-          </TouchableOpacity>
+        <View style={styles.mainView}>
+          <ScrollView showsVerticalScrollIndicator={false}>
+
+
+            {Analysis.map((analysis, index) =>
+
+              // <Animatable.View
+              //   animation={index % 2 == 0 ? ("slideInLeft") : ("slideInUp")}
+              // >
+              <TouchableOpacity style={styles.buttonStyle}
+                onPress={() =>
+                  navigation.navigate("DoneAnalysis", {
+
+                    ana_name: analysis.name,
+                    ana_place: analysis.section
+
+                  })
+                }
+              >
+
+                <Text style={styles.textStyle}>{analysis.name}</Text>
+
+
+              </TouchableOpacity>
+              // </Animatable.View>
+
+
+
+
+            )}
+            <View style={{ height: 100 }}></View>
+          </ScrollView>
 
         </View>
 
+
       </View>
     </>
-
-
   )
+  // }
 
 }
 
@@ -172,24 +190,33 @@ const styles = StyleSheet.create({
 
 
   },
-  largeView:
-  {
-    width: width,
+  mainView: {
+    width: width / 1.3,
     height: height,
-    backgroundColor: COLORS.mainColor,
-    justifyContent: "center",
-    alignItems: "center"
-  },
-  button: {
-    width: width / 4,
-    height: height / 14,
-    backgroundColor: COLORS.white,
-    borderRadius: RADIUS.lgRadius,
-    marginTop: "30%",
-    padding: PADDING.lPadding,
+    // backgroundColor: "#0ff",
     alignItems: "center",
-    justifyContent: "center",
+  },
+  textStyle: {
+    color: COLORS.white,
+    fontSize: FONTS.h1,
+    textAlign: "center",
+    marginHorizontal: MARGIN.lMargin,
+    fontFamily: "Cabin-Regular"
 
   }
 
+  ,
+  buttonStyle: {
+    width: width / 1.5,
+    height: height / 11,
+    backgroundColor: COLORS.mainColor,
+    marginVertical: MARGIN.xlMargin,
+    borderRadius: RADIUS.smRadius,
+    alignItems: "center",
+    justifyContent: "center",
+    elevation: 5,
+    flexDirection: "row",
+    // padding: 10,
+  }
 });
+

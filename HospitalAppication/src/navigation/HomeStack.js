@@ -14,6 +14,9 @@ import Medicine from '../screen/Medicine';
 // import DepartmentNav from './DepartmentsNav';
 import Home from '../screen/Home';
 import IllnessStack from './IllnessStack';
+import Service from '../screen/Service';
+import DoneAnalysis from '../screen/DoneAnalysis';
+import DoneAwy from '../screen/DoneAwy';
 function HomeStack() {
   return (
     <Stack.Navigator
@@ -26,7 +29,10 @@ function HomeStack() {
       <Stack.Screen name='Home' component={Home} />
       {/* <Stack.Screen name='DepartmentNav' component={DepartmentNav} /> */}
       <Stack.Screen name='Medicine' component={Medicine} />
-      <Stack.Screen name='IllnessStack' component={IllnessStack}/>
+      <Stack.Screen name='IllnessStack' component={IllnessStack} />
+      <Stack.Screen name='Service' component={Service} />
+      <Stack.Screen name='DoneAnalysis' component={DoneAnalysis}/>
+      <Stack.Screen name='DoneAwy' component={DoneAwy}/>
 
     </Stack.Navigator>
   );

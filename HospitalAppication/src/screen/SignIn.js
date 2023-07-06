@@ -18,7 +18,7 @@ import Entypo from 'react-native-vector-icons/Entypo'
 import { COLORS } from '../Constants/Constant';
 const { width, height } = Dimensions.get('window');
 
-export default function LoginGhod({ navigation }) {
+export default function SignIn({ navigation }) {
     const [Email, setEmail] = useState('');
     const [Emailerorr, setEmailError] = useState('');
     const [password, setPassword] = useState('');

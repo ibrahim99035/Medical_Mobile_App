@@ -130,9 +130,14 @@ export default class Home extends React.Component {
                             </View>
                         </TouchableOpacity>
 
-                        <TouchableOpacity style={styles.buttonStyle}>
+                        <TouchableOpacity style={styles.buttonStyle}
+                        onPress={()=>{
+                            this.props.navigation.navigate('Service')
+
+                        }}
+                        >
                             <View style={styles.viewForText}>
-                                <Text style={styles.textStyle}>Service</Text>
+                                <Text style={styles.textStyle}>Analysis</Text>
                             </View>
                             <View style={styles.viewForIcon}>
                                 <Image style={styles.buttonImage} source={require("../img/service.png")} />

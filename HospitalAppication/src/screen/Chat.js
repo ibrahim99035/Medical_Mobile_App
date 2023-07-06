@@ -20,11 +20,11 @@
 
 //         }
 //     }
-    
+
 //     render() {
 //         return (
 //             <>
-         
+
 //          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
 //       <Text>Chat!</Text>
 //     </View>
@@ -46,24 +46,24 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-nativ
 const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState('');
-  const [a,seta]=useState("")
+  const [a, seta] = useState("")
 
   useEffect(() => {
     // Connect to backend server and retrieve initial message history
-    let A="AAAAAAAaa"
+    let A = "AAAAAAAaa"
     seta(A)
   }, []);
   const handleSendMessage = () => {
     // Send new message to backend server and update local state
     // "AAAAAAAAAAAAAAAAAAAAAA"
-    let m=messages
+    let m = messages
     m.push(message)
     setMessage("")
   };
 
   return (
     <View style={styles.container}>
-    
+
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
@@ -89,23 +89,23 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor:"#0f0f"
+    backgroundColor: "#0f0f"
   },
   messagesContainer: {
     flex: 0.2,
     // justifyContent: 'flex-end',
     paddingBottom: 20,
-    backgroundColor:"#00f"
+    backgroundColor: "#00f"
   },
   message: {
     fontSize: 18,
     marginBottom: 10,
-    color:"#f00f"
+    color: "#f00f"
   },
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    
+
   },
   input: {
     flex: 1,
@@ -114,14 +114,14 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     paddingHorizontal: 20,
     marginRight: 10,
-    backgroundColor:"#0ff"
+    backgroundColor: "#0ff"
   },
   button: {
     backgroundColor: 'blue',
     paddingHorizontal: 20,
     paddingVertical: 10,
     borderRadius: 20,
-    backgroundColor:"#ccc"
+    backgroundColor: "#ccc"
   },
   buttonText: {
     color: 'white',

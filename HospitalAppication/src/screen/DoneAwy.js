@@ -16,48 +16,20 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 const { width, height } = Dimensions.get('window')
 
 
-export default function Done(props) {
+export default function DoneAwy(props) {
   const [notficationShow, setnotficationShow] = useState(false)
 
   const navigation = useNavigation();
 
-  const [day, setday] = useState("")
-  // const [time, settime] = useState("")
-  const [doctor, setdoctor] = useState("")
 
-
-  const [ftime, setftime] = useState()
   useEffect(() => {
-    if (props.route?.params?.time) {
-      const time = props.route.params.time;
-      setftime(time)
-      // console.log(time)
-    }
-    let name = props.route.params.doctorName
-    setdoctor(name)
+
+    
+   
 
   }, []);
 
-  const getTomorrowDate = () => {
-    const today = new Date();
-    const tomorrow = new Date(today);
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    return tomorrow.toDateString();
-  };
-  const [arrNotification, setarrNotification] = useState([])
-
-  function Done() {
-    let dateaa = getTomorrowDate()
-    let arr = arrNotification
-    let newOpj = {
-      drname: doctor,
-      time: ftime,
-      date: dateaa
-    }
-    arr.push(newOpj)
-
-  }
-
+ 
   return (
     <>
       {/* checkmark-circle */}
@@ -90,39 +62,8 @@ export default function Done(props) {
         </View>
         <View style={styles.largeView}>
           <Ionicons name="checkmark-circle" size={150} color={COLORS.white} />
-          <Text
-            style={{
-              color: COLORS.white,
-              fontSize: FONTS.h2,
-              fontFamily: "Cabin-Regular",
-            }}
-          >{doctor}</Text>
+     
 
-          <Text
-            style={{
-              color: COLORS.white,
-              fontSize: FONTS.h2,
-              fontFamily: "Cabin-Regular",
-            }}
-          >Day:  {getTomorrowDate()}</Text>
-
-          <Text
-            style={{
-              color: COLORS.white,
-              fontSize: FONTS.h2,
-              fontFamily: "Cabin-Regular",
-            }}
-          >Time:   {ftime} pm</Text>
-
-
-
-          <TouchableOpacity style={styles.button}
-            onPress={() => {
-              Done()
-            }}
-          >
-            <Text style={{ color: "#000", fontSize: 17 }}>Done</Text>
-          </TouchableOpacity>
 
         </View>
 
