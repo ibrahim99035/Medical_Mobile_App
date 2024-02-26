@@ -130,7 +130,7 @@ export default class Home extends React.Component {
                             </View>
                         </TouchableOpacity>
 
-                        <TouchableOpacity style={styles.buttonStyle}
+                        {/* <TouchableOpacity style={styles.buttonStyle}
                         onPress={()=>{
                             this.props.navigation.navigate('Service')
 
@@ -142,7 +142,7 @@ export default class Home extends React.Component {
                             <View style={styles.viewForIcon}>
                                 <Image style={styles.buttonImage} source={require("../img/service.png")} />
                             </View>
-                        </TouchableOpacity>
+                        </TouchableOpacity> */}
 
                         <TouchableOpacity style={styles.buttonStyle}
                             onPress={() => {

@@ -16,20 +16,33 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 const { width, height } = Dimensions.get('window')
 
 
+
 export default function DoneAwy(props) {
   const [notficationShow, setnotficationShow] = useState(false)
 
   const navigation = useNavigation();
 
 
-  useEffect(() => {
+  const [name, setname] = useState("")
+  const [age, setage] = useState('')
 
-    
-   
+
+  const [anaName, setanaName] = useState('')
+  const [anaSection, setanaSection] = useState('')
+
+  useEffect(() => {
+    // let nameee = props.route.params.pName
+    // let sec = props.route.params.anaSection
+    // let aname = props.route.params.anaName
+    // let agee = props.route.params.age
+    // setname(nameee)
+    // setage(agee)
+    // setanaName(aname)
+    // setanaSection(sec)
 
   }, []);
 
- 
+
   return (
     <>
       {/* checkmark-circle */}
@@ -62,8 +75,10 @@ export default function DoneAwy(props) {
         </View>
         <View style={styles.largeView}>
           <Ionicons name="checkmark-circle" size={150} color={COLORS.white} />
-     
 
+          <View style={{marginVertical:MARGIN.xxlMargin}}>
+          <Image source={require("../img/frame.png")} style={{ width: 300, height: 300 }} />
+          </View>
 
         </View>
 

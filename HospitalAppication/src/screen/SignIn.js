@@ -26,54 +26,54 @@ export default function SignIn({ navigation }) {
     const [secured_pass, setSecured_pass] = useState(false);
 
 
-    const validateEmail = email => {
-        let reg = /^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/;
-        if (reg.test(email) === false) {
-            return false;
-        } else {
-            return true;
-        }
-    };
-    const validatePassword = password => {
-        var pass = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,20}$/;
-        return pass.test(password);
-    };
+    // const validateEmail = email => {
+    //     let reg = /^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/;
+    //     if (reg.test(email) === false) {
+    //         return false;
+    //     } else {
+    //         return true;
+    //     }
+    // };
+    // const validatePassword = password => {
+    //     var pass = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,20}$/;
+    //     return pass.test(password);
+    // };
 
     const login = value => {
         let error = 0;
 
         //email
-        if (Email == '') {
-            error++;
-            setEmailError('enter your email');
-        } else if (!validateEmail(Email)) {
-            error++;
-            setEmailError('enter valid email');
-        } else {
-            setEmailError('');
-        }
+        // if (Email == '') {
+        //     error++;
+        //     setEmailError('enter your email');
+        // } else if (!validateEmail(Email)) {
+        //     error++;
+        //     setEmailError('enter valid email');
+        // } else {
+        //     setEmailError('');
+        // }
 
-        //password
-        if (password.trim() == '') {
-            error++;
-            setPassError('enter password');
-        } else if (password.length > 20) {
-            error++;
-            setPassError('the password must not exceed 20 char and number');
-        } else if (!validatePassword(password)) {
-            error++;
-            setPassError(
-                'The password must be at least 6 numbers, an uppercase letter, a lowercase letter, and a distinctive sign',
-            );
-        } else {
-            setPassError('');
-        }
+        // //password
+        // if (password.trim() == '') {
+        //     error++;
+        //     setPassError('enter password');
+        // } else if (password.length > 20) {
+        //     error++;
+        //     setPassError('the password must not exceed 20 char and number');
+        // } else if (!validatePassword(password)) {
+        //     error++;
+        //     setPassError(
+        //         'The password must be at least 6 numbers, an uppercase letter, a lowercase letter, and a distinctive sign',
+        //     );
+        // } else {
+        //     setPassError('');
+        // }
 
-        if (error == 0) {
-          // navigation.navigate("MainStack")
+        if (Email=="1"&&password=="1") {
+          navigation.navigate("MainStack")
 
-            alert("dn")
-            console.log(error)
+            // alert("dn")
+            // console.log(error)
         }
         else {
             console.log(error)
@@ -203,8 +203,8 @@ export default function SignIn({ navigation }) {
 
                     <TouchableOpacity
                         onPress={() => {
-                            // login();
-                            navigation.navigate("MainStack")
+                            login();
+                            // navigation.navigate("MainStack")
 
                         }}
 

@@ -110,7 +110,7 @@ export default function Profile({ navigation }) {
                 <View style={styles.HeaderImage}>
                     <Image
                         resizeMode="contain"
-                        source={require('../img/congestal.png')}
+                    source={require('../img/1.png')}
                         style={styles.imageStyle}
                     />
                     <TouchableOpacity
@@ -270,7 +270,7 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: "center",
         // justifyContent:"center"
-        // backgroundColor: "#549cfc90"
+        backgroundColor: "#fff"
     },
     HeaderImage: {
         height: height / 6,

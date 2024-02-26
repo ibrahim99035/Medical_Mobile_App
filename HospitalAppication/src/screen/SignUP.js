@@ -11,7 +11,8 @@ import {
     BackHandler,
     ScrollView,
     AsyncStorage,
-    TextInput
+    TextInput,
+    Alert
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import Entypo from 'react-native-vector-icons/Entypo'
@@ -49,66 +50,71 @@ export default function SignUP({ navigation }) {
         const re = /^([a-zA-Z0-9\s_\u0600-\u06FF]).{5,30}$/;
         return re.test(String(name).toLowerCase());
     };
-
+    const [mes, setmes] = useState("")
     const signup = value => {
         let error = 0;
         //name
 
-        if (name.trim() == '') {
-            error++;
-            setNameerorr('enter your name');
-        } else if (!validateName(name)) {
-            error++;
-            setNameerorr('enter valid name ');
-        } else {
-            setNameerorr('');
-        }
+        // if (name.trim() == '') {
+        //     error++;
+        //     setNameerorr('enter your name');
+        // } else if (!validateName(name)) {
+        //     error++;
+        //     setNameerorr('enter valid name ');
+        // } else {
+        //     setNameerorr('');
+        // }
 
         //email
-        if (Email == '') {
-            error++;
-            setEmailError('enter your email');
-        } else if (!validateEmail(Email)) {
-            error++;
-            setEmailError('enter valid email');
-        } else {
-            setEmailError('');
-        }
+        // if (Email == '') {
+        //     error++;
+        //     setEmailError('enter your email');
+        // } else if (!validateEmail(Email)) {
+        //     error++;
+        //     setEmailError('enter valid email');
+        // } else {
+        //     setEmailError('');
+        // }
 
         //phone
-        if (phone == '') {
-            error++;
-            setPhoneError('enter your phone number');
-        } else if (!validatePhone(phone)) {
-            error++;
-            setPhoneError('enter valid phone number ');
-        } else {
-            setPhoneError('');
-        }
+        // if (phone == '') {
+        //     error++;
+        //     setPhoneError('enter your phone number');
+        // } else if (!validatePhone(phone)) {
+        //     error++;
+        //     setPhoneError('enter valid phone number ');
+        // } else {
+        //     setPhoneError('');
+        // }
 
         //password
-        if (password.trim() == '') {
-            error++;
-            setPassError('enter password');
-        } else if (password.length > 20) {
-            error++;
-            setPassError('the password must not exceed 20 char and number');
-        } else if (!validatePassword(password)) {
-            error++;
-            setPassError(
-                'The password must be at least 6 numbers, an uppercase letter, a lowercase letter, and a distinctive sign',
-            );
-        } else {
-            setPassError('');
-        }
+        // if (password.trim() == '') {
+        //     error++;
+        //     setPassError('enter password');
+        // } else if (password.length > 20) {
+        //     error++;
+        //     setPassError('the password must not exceed 20 char and number');
+        // } else if (!validatePassword(password)) {
+        //     error++;
+        //     setPassError(
+        //         'The password must be at least 6 numbers, an uppercase letter, a lowercase letter, and a distinctive sign',
+        //     );
+        // } else {
+        //     setPassError('');
+        // }
 
-        if (error == 0) {
+        if (name == "Abdelrhman" && phone == "01097751608" && Email == "abdelrhmanghodia@gmail.com" && password == "A123456789") {
             // navigation.navigate("")
-            alert("dn")
-            console.log(error)
+            setmes("Register success")
+            // console.log(error)
+            setEmail("")
+            setPassword("")
+            setPhone("")
+            setName("")
+
         }
         else {
-            console.log(error)
+            setmes("Error")
         }
     }
     const onChangeEmail = value => {
@@ -292,7 +298,9 @@ export default function SignUP({ navigation }) {
                         <View style={styles.ErrorView}>
                             <Text style={styles.ErrorText}>{passworderorr}</Text>
                         </View>
+
                     </View>
+                    <Text style={{ color: "green", fontSize: 18,alignSelf:"center" }}>{mes}</Text>
 
                     <TouchableOpacity
                         onPress={() => {
@@ -320,7 +328,7 @@ export default function SignUP({ navigation }) {
 const styles = StyleSheet.create({
     Header: {
         // flex: 1,
-        height: height*1.02,
+        height: height * 1.02,
         backgroundColor: "#fff",
         justifyContent: "space-evenly"
     },

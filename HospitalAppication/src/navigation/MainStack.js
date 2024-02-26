@@ -16,6 +16,8 @@ import Profile from '../screen/Profile';
 import HomeStack from './HomeStack';
 import DepartmentNav from './DepartmentsNav';
 import ProfileStack from './ProfileStack';
+// import Service from '../screen/Service';
+import Services from './Services';
 const Tab = createBottomTabNavigator()
 
 function MainStack() {
@@ -36,9 +38,15 @@ function MainStack() {
                             : 'home-outline';
                     } else if (route.name === 'Departments') {
                         iconName = focused ? 'medkit' : 'medkit-outline'
-                    } else if (route.name === 'Chat') {
-                        iconName = focused ? 'chatbox-ellipses' : 'chatbox-ellipses-outline'
-                    } else if (route.name === 'Profile') {
+                    }
+                    //  else if (route.name === 'Chat') {
+                    //     iconName = focused ? 'chatbox-ellipses' : 'chatbox-ellipses-outline'
+                    // }
+
+                    else if (route.name === 'Services') {
+                        iconName = focused ? "eyedrop" : 'eyedrop-outline'
+                    }
+                     else if (route.name === 'Profile') {
                         iconName = focused ? 'person' : 'person-outline'
                     }
 
@@ -52,8 +60,9 @@ function MainStack() {
             })}
         >
             <Tab.Screen name="Profile" component={ProfileStack} />
-            <Tab.Screen name="Chat" component={Chat} />
-            <Tab.Screen name='Departments'  component={DepartmentNav}/>
+            {/* <Tab.Screen name="Chat" component={Chat} /> */}
+            <Tab.Screen name='Services' component={Services}/>
+             <Tab.Screen name='Departments'  component={DepartmentNav}/>
             <Tab.Screen name="Home" component={HomeStack} />
 
 

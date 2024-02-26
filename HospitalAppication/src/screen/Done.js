@@ -55,7 +55,7 @@ export default function Done(props) {
       date: dateaa
     }
     arr.push(newOpj)
-
+    navigation.navigate("Departments")
   }
 
   return (
@@ -90,6 +90,9 @@ export default function Done(props) {
         </View>
         <View style={styles.largeView}>
           <Ionicons name="checkmark-circle" size={150} color={COLORS.white} />
+          <View style={{marginVertical:MARGIN.xxlMargin}}>
+          <Image source={require("../img/frame.png")} style={{ width: 300, height: 300 }} />
+          </View>
           <Text
             style={{
               color: COLORS.white,

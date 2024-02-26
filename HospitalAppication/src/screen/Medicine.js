@@ -75,21 +75,36 @@ export default function Medicine() {
     const [changeIcon, setchangeIcon] = useState(false)
     const [indexglobal, Setindexglobal] = useState()
 
-    const description = (index) => {
-        let med = medicine
-        if (med[index].change == false) {
-            med[index].change = true
-            // Setindexglobal(index)
+    // const description = (index) => {
+    //     let med = medicine
+    //     if (med[index].change == false) {
+    //         med[index].change = true
+    //         // Setindexglobal(index)
 
-            setchangeIcon(true)
+    //         setchangeIcon(true)
+    //     }
+    //     else {
+    //         med[index].change = false
+    //         setchangeIcon(false)
+    //         // Setindexglobal(index)
+    //     }
+    //     Setmedicine(med)
+    // }
+
+    const description = (index) => {
+        let med = [...medicine]; // Create a copy of the medicine array to avoid mutating state directly
+        if (med[index].change === false) {
+            med[index].change = true;
+            // Setindexglobal(index);
+            setchangeIcon(true); // Assuming setChangeIcon is the correct state setter function
+        } else {
+            med[index].change = false;
+            setchangeIcon(false); // Assuming setChangeIcon is the correct state setter function
+            // Setindexglobal(index);
         }
-        else {
-            med[index].change = false
-            setchangeIcon(false)
-            // Setindexglobal(index)
-        }
-        Setmedicine(med)
+        Setmedicine(med); // Assuming setMedicine is the correct state setter function
     }
+    
     
 
     const [IconSearch, setIconSearch] = useState(true)

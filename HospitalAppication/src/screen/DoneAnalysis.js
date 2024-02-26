@@ -7,7 +7,8 @@ import {
     StyleSheet,
     TextInput,
     ScrollView,
-    Image
+    Image,
+    Alert
 } from 'react-native';
 import { useNavigation, NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -41,7 +42,29 @@ export default function DoneAnalysis(props) {
         tomorrow.setDate(tomorrow.getDate() + 1);
         return tomorrow.toDateString();
     };
+    const [errormessage, seterrormessage] = useState('')
 
+    function fun() {
+        let pationName = name;
+        let pationtAge = age;
+        if (pationName == '' || pationName.includes('!#$%^&*()')||pationtAge==''||pationtAge<1&&pationtAge>100) {
+          seterrormessage('Error in information');
+        }else if(pationName==""||pationtAge==""){
+            seterrormessage("fill requires")
+        }else{
+            seterrormessage("")
+            navigation.navigate("DoneAwy",{
+            
+                age:age,
+                anaName:anaName,
+                anaSection:anaSection,
+pName:name
+            })
+        }
+
+
+      }
+      
 
     return (
         <>
@@ -73,69 +96,75 @@ export default function DoneAnalysis(props) {
 
                 </View>
                 <ScrollView showsVerticalScrollIndicator={false}
-                style={{width:width}}
+                    style={{ width: width }}
                 >
 
-                <Text style={styles.depart_textNameStyle}>{anaName}</Text>
+                    <Text style={styles.depart_textNameStyle}>{anaName}</Text>
 
-                <View style={styles.largeView}>
+                    <View style={styles.largeView}>
 
-                    <View style={{ marginVertical: MARGIN.lMargin }}>
-                        <Text style={styles.text_des}>
-                            Enter  patient name
-                        </Text>
-                        <TextInput
-                            placeholder='patient name'
-                            style={styles.txtinputStyle}
+                        <View style={{ marginVertical: MARGIN.lMargin }}>
+                            <Text style={styles.text_des}>
+                                Enter  patient name
+                            </Text>
+                            <TextInput
+                                placeholder='patient name'
+                                style={styles.txtinputStyle}
 
-                            placeholderTextColor={COLORS.grayFont}
-                            value={name}
-                            onChangeText={(value) =>
-                                setname(value)
-                            }
-                        />
+                                placeholderTextColor={COLORS.grayFont}
+                                value={name}
+                                onChangeText={(value) =>
+                                    setname(value)
+                                }
+                            />
 
-                    </View>
+                        </View>
 
-                    <View style={{ marginVertical: MARGIN.lMargin }}>
-                        <Text style={styles.text_des}>
-                            Enter  patient age
-                        </Text>
-                        <TextInput
-                            placeholder='patient age'
-                            style={styles.txtinputStyle}
+                        <View style={{ marginVertical: MARGIN.lMargin }}>
+                            <Text style={styles.text_des}>
+                                Enter  patient age
+                            </Text>
+                            <TextInput
+                                placeholder='patient age'
+                                style={styles.txtinputStyle}
 
-                            placeholderTextColor={COLORS.grayFont}
-                            value={age}
-                            onChangeText={(value) =>
-                                setage(value)
-                            }
-                        />
+                                placeholderTextColor={COLORS.grayFont}
+                                value={age}
+                                onChangeText={(value) =>
+                                    setage(value)
+                                }
+                            />
 
-                    </View>
-                    <View style={{ marginVertical: MARGIN.lMargin, width: width / 1.2, }}>
-                        <Text style={styles.text_des}>
-                            Date
-                        </Text>
+                        </View>
+                        <View style={{ marginVertical: MARGIN.lMargin, width: width / 1.2, }}>
+                            <Text style={styles.text_des}>
+                                Date
+                            </Text>
+                            <Text style={{
+                                color: COLORS.black,
+                                textAlign: "right",
+                                fontSize: FONTS.h5,
+                                fontFamily: "Cabin-Regular",
+                                alignSelf: "flex-end"
+                            }}
+                            >   Booking on : {getTomorrowDate()}</Text>
+                        </View>
                         <Text style={{
-                            color: COLORS.black,
-                            textAlign: "right",
-                            fontSize: FONTS.h5,
-                            fontFamily: "Cabin-Regular",
-                            alignSelf: "flex-end"
-                        }}
-                        >   Booking on : {getTomorrowDate()}</Text>
+                             color: 'red',
+                             marginTop:MARGIN.xxlMargin ,
+                             alignSelf: "center",
+                             fontSize: 15
+                        }}>{errormessage}</Text>
 
                     </View>
-
-                </View>
-                <TouchableOpacity style={styles.button}
-                    onPress={() => {
-                    navigation.navigate("DoneAwy")
-                    }}
-                >
-                    <Text style={{ color: "#fff", fontSize: 17 }}>Done</Text>
-                </TouchableOpacity>
+                    <TouchableOpacity style={styles.button}
+                        onPress={() => {
+                            fun()
+                        }
+                        }
+                    >
+                        <Text style={{ color: "#fff", fontSize: 17 }}>Done</Text>
+                    </TouchableOpacity>
                 </ScrollView>
             </View>
         </>
@@ -147,6 +176,13 @@ export default function DoneAnalysis(props) {
 
 
 const styles = StyleSheet.create({
+    errormessage: {
+
+        color: 'red',
+        // marginVertical:MARGIN.xxlMargin ,
+        alignSelf: "center",
+        fontSize: 25
+    },
     depart_textNameStyle: {
         width: width / 1.1,
 
@@ -235,7 +271,7 @@ const styles = StyleSheet.create({
         backgroundColor: COLORS.white,
         // justifyContent: "center",
         alignItems: "center",
-        marginTop:"15%"
+        marginTop: "15%"
     },
     button: {
         width: width / 4,
@@ -246,7 +282,7 @@ const styles = StyleSheet.create({
         padding: PADDING.lPadding,
         alignItems: "center",
         justifyContent: "center",
-        alignSelf:"center"
+        alignSelf: "center"
 
     }
 
